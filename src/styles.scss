@@ -19,3 +19,42 @@ header {
     max-width: 10%;
   }
 }
+.ring {
+  margin: 0 auto;
+  width: 200px;
+  height: 188px;
+  float: left;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: inherit; /*90*/
+  height: inherit; /*80*/
+  box-sizing: border-box;
+  opacity: 0.9;
+  color: rgba(0, 0, 0, 0.9);
+  background: #fff;
+  border: solid 1px #000;
+  text-align: center;
+}
+.slot > p {
+  max-width: inherit;
+  margin: 0 auto;
+}
+.reelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /*потому что ось меняется при column*/
+  min-height: 470px;
+}
+.perspective {
+  -webkit-transform: rotateY(10deg);
+          transform: rotateY(10deg);
+  -webkit-transition: transform 1.5s ease-in-out;
+          transition: transform 1.5s ease-in-out;
+}

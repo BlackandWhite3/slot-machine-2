@@ -1,14 +1,18 @@
 <template>
   <app-layout>
     <div slot="controls">
-      <div>/|CONTROLS GONNA WRAP|\</div>
+      <div>/|CONTROLS ARE GONNA WRAP|\</div>
       <button @click="updateCount(-1)">-</button>
-      {{ count }}
+      {{ reel_count }}
       <button @click="updateCount(1)">+</button>
+      <label>
+        <input type="checkbox" id="xray" @click="goPerspective"/>
+        Вид сбоку
+      </label>
     </div>
     <div slot="reels" class="d-flex flex-row flex-nowrap">
-      <div v-for="i in count" :key="i">
-        <reel></reel>
+      <div v-for="i in reel_count" :key="i">
+        <reel :reel-id="reel_count" :slots-per-reel="8"></reel>
       </div>
     </div>
     <div slot="text-gen">
@@ -24,12 +28,28 @@ import TextGen from "./components/TextGen";
 export default {
   data() {
     return {
-      count: 3
+      // eslint-disable-next-line
+      reel_count: 0,
+      slots_per_reel: 8
     };
   },
   methods: {
     updateCount(change) {
-      this.count += change;
+      this.reel_count += change;
+    },
+    goPerspective() {
+      let toggle = document.getElementById('xray');
+      let myrings = document.querySelectorAll('ring');
+      toggle.addEventListener("click", function(event) {
+        event.preventDefault();
+        for(let i = 0; i < this.reel_count; i++ ) {
+          myrings[i].classList.toggle('perspective');
+        }
+      });
+      /*
+      document.querySelectorAll('ring').forEach((el) => {
+        el.classList.toggle('perspective');
+      });*/
     }
   },
   components: {

@@ -1,6 +1,6 @@
 <template>
   <header class="d-flex justify-content-end align-items-center">
-    <div>here will be the status</div>
+    <div>LogStatus</div>
     <b-form-input type="text" placeholder="Введите логин"
     ></b-form-input>
     <b-form-input type="password" placeholder="Введите пароль"></b-form-input>
