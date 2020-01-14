@@ -10,3 +10,12 @@ body {
   height: inherit;
   width: inherit;
 }
+header {
+  * {
+    margin-right: 30px;
+  }
+  button,
+  input {
+    max-width: 10%;
+  }
+}

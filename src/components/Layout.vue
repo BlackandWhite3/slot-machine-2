@@ -1,8 +1,6 @@
 <template>
-  <div class="full-height">
-    <header class="d-flex justify-content-end align-items-center">
-      <slot name="auth-panel"></slot>
-    </header>
+  <div class="body-h100">
+    <auth-header></auth-header>
     <main class="main">
       <div class="d-flex flex-row-reverse main-container">
         <slot name="reels"></slot>
@@ -16,12 +14,20 @@
 </template>
 
 <script>
+import AuthHeader from "./header/AuthHeader";
+
 export default {
-  name: "Layout"
+  name: "Layout",
+  data() {
+    return {};
+  },
+  components: {
+    AuthHeader: AuthHeader
+  }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 header {
   background-color: yellowgreen;
   height: 7%;
@@ -30,7 +36,7 @@ main {
   background-color: cadetblue;
   height: 93%;
 }
-.full-height {
+.body-h100 {
   height: inherit;
 }
 .main-container {
