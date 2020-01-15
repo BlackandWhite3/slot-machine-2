@@ -1,18 +1,19 @@
 <template>
   <app-layout>
     <div slot="controls">
-      <div>/|CONTROLS ARE GONNA WRAP|\</div>
+      <!--<div>/|CONTROLS ARE GONNA WRAP|\</div>
       <button @click="updateCount(-1)">-</button>
       {{ reel_count }}
       <button @click="updateCount(1)">+</button>
       <label>
         <input type="checkbox" id="xray" @click="goPerspective"/>
         Вид сбоку
-      </label>
+      </label>-->
+      <advanced-controls></advanced-controls>
     </div>
     <div slot="reels" class="d-flex flex-row flex-nowrap">
       <div v-for="i in reel_count" :key="i">
-        <reel :reel-id="reel_count" :slots-per-reel="8"></reel>
+        <reel :reel-id="reel_count - 1" :slots-per-reel="8"></reel>
       </div>
     </div>
     <div slot="text-gen">
@@ -23,6 +24,7 @@
 <script>
 import Layout from "./components/Layout";
 import Reel from "./components/Reel";
+import AdvancedControls from "./components/controls/AdvancedControls";
 import TextGen from "./components/TextGen";
 
 export default {
@@ -55,7 +57,8 @@ export default {
   components: {
     AppLayout: Layout,
     TextGen: TextGen,
-    Reel: Reel
+    Reel: Reel,
+    AdvancedControls: AdvancedControls
   }
 };
 </script>

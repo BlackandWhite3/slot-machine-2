@@ -14,6 +14,7 @@ export default {
   },
   data() {
     return {
+
       slotAngle: 0,
       reelRadius: 0,
       panelHeight: 188
@@ -27,7 +28,7 @@ export default {
       return Math.round(panelHeight / 2 / Math.tan(Math.PI / slotsPerReel));
     }
   },
-  /*Разметка в Created()*/
+  /*Старый способ, перенесённый из jQuery*/
   mounted() {
     this.slotAngle = this.getSlotAngle(this.slotsPerReel);
     this.reelRadius = this.getReelRadius(this.panelHeight, this.slotsPerReel);
