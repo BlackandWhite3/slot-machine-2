@@ -1,5 +1,5 @@
 <template>
-  <header class="d-flex justify-content-end align-items-center">
+  <header class="d-flex justify-content-end align-items-center" style="height: 7%;">
     <div>LogStatus</div>
     <b-form-input type="text" placeholder="Введите логин"
     ></b-form-input>

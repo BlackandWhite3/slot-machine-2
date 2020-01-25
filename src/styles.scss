@@ -26,6 +26,10 @@ header {
   float: left;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
+  -webkit-transform: rotateY(8deg);
+          transform: rotateY(8deg);
+  -webkit-transition: transform 1.5s ease-in-out;
+          transition: transform 1.5s ease-in-out;
 }
 .slot {
   display: flex;
@@ -57,4 +61,7 @@ header {
           transform: rotateY(10deg);
   -webkit-transition: transform 1.5s ease-in-out;
           transition: transform 1.5s ease-in-out;
+}
+.w-90 {
+  max-width: 90%;
 }

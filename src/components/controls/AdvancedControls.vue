@@ -51,7 +51,4 @@ export default {
   button, p {
     margin: 5px 10px;
   }
-  .w-90 {
-    max-width: 90%;
-  }
 </style>

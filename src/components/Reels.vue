@@ -1,20 +1,19 @@
 <template>
   <div id="reel" class="reelContainer" v-once>
-    <b-button pill variant="secondary">Очистить барабан</b-button>
+    <b-button pill variant="secondary" class="w-90 align-self-center">Очистить барабан</b-button>
     <div :id="'ring' + reelId" class="ring"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Reel",
+  name: "Reels",
   props: {
     reelId: Number,
     slotsPerReel: Number
   },
   data() {
     return {
-
       slotAngle: 0,
       reelRadius: 0,
       panelHeight: 188
@@ -48,4 +47,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+button,
+p {
+  margin: 5px 10px;
+}
+</style>

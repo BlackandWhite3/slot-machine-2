@@ -1,51 +1,68 @@
 <template>
-  <app-layout>
-    <div slot="controls">
-      <!--<div>/|CONTROLS ARE GONNA WRAP|\</div>
-      <button @click="updateCount(-1)">-</button>
-      {{ reel_count }}
-      <button @click="updateCount(1)">+</button>
-      <label>
-        <input type="checkbox" id="xray" @click="goPerspective"/>
-        Вид сбоку
-      </label>-->
-      <advanced-controls></advanced-controls>
-    </div>
-    <div slot="reels" class="d-flex flex-row flex-nowrap">
-      <div v-for="i in reel_count" :key="i">
-        <reel :reel-id="reel_count - 1" :slots-per-reel="8"></reel>
+  <div class="body-h100">
+    <component :is="current_header"></component>
+    <main>
+      <div class="d-flex flex-row-reverse main-container">
+        <reels></reels>
+        <component :is="current_controls"></component>
       </div>
-    </div>
-    <div slot="text-gen">
-      <text-gen></text-gen>
-    </div>
-  </app-layout>
+      <div class="text-center text-gen">
+        <div>{{ axios_info }}</div>
+        <text-gen></text-gen>
+      </div>
+    </main>
+  </div>
 </template>
 <script>
-import Layout from "./components/Layout";
-import Reel from "./components/Reel";
+// import Layout from "./components/Layout";
+import AuthHeader from "./components/header/AuthHeader";
+import Reels from "./components/Reels";
 import AdvancedControls from "./components/controls/AdvancedControls";
 import TextGen from "./components/TextGen";
+
+const axios = require("axios");
 
 export default {
   data() {
     return {
       // eslint-disable-next-line
-      reel_count: 0,
-      slots_per_reel: 8
+      axios_info: null,
+      reel_count: 1,
+      slots_per_reel: 8,
+      current_header: "AuthHeader",
+      current_controls: "AdvancedControls"
     };
+  },
+  mounted() {
+    axios
+      .get("http://pazhurdev.herokuapp.com/api/default_reel_sets/1/")
+      .then(response => (this.axios_info = response));
   },
   methods: {
     updateCount(change) {
       this.reel_count += change;
     },
+    switchHeader() {
+      if (this.current_header === "AuthHeader") {
+        this.current_header = "ProfileHeader";
+      } else {
+        this.current_header = "AuthHeader";
+      }
+    },
+    switchControls() {
+      if (this.current_controls === "BasicControls") {
+        this.current_controls = "AdvancedControls";
+      } else {
+        this.current_controls = "BasicControls";
+      }
+    },
     goPerspective() {
-      let toggle = document.getElementById('xray');
-      let myrings = document.querySelectorAll('ring');
+      let toggle = document.getElementById("xray");
+      let myrings = document.querySelectorAll("ring");
       toggle.addEventListener("click", function(event) {
         event.preventDefault();
-        for(let i = 0; i < this.reel_count; i++ ) {
-          myrings[i].classList.toggle('perspective');
+        for (let i = 0; i < this.reel_count; i++) {
+          myrings[i].classList.toggle("perspective");
         }
       });
       /*
@@ -55,11 +72,30 @@ export default {
     }
   },
   components: {
-    AppLayout: Layout,
+    // AppLayout: Layout,
     TextGen: TextGen,
-    Reel: Reel,
-    AdvancedControls: AdvancedControls
+    Reels: Reels,
+    AdvancedControls: AdvancedControls,
+    AuthHeader: AuthHeader
   }
 };
 </script>
-<style scoped></style>
+<style scoped lang="scss">
+  main {
+  background-color: cadetblue;
+  height: 93%;
+}
+header {
+  background-color: yellowgreen;
+  height: 100%;
+}
+.body-h100 {
+  height: inherit;
+}
+.main-container {
+  height: 75%;
+}
+.text-gen {
+  height: 25%;
+}
+</style>
