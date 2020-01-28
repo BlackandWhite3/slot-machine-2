@@ -3,18 +3,17 @@
     <component :is="current_header"></component>
     <main>
       <div class="d-flex flex-row-reverse main-container">
-        <reels></reels>
+        <reels :reel-set="reel_set"></reels>
         <component :is="current_controls"></component>
       </div>
       <div class="text-center text-gen">
-        <div>{{ axios_info }}</div>
+        <div>{{ reel_set.data.reels[0] }}</div>
         <text-gen></text-gen>
       </div>
     </main>
   </div>
 </template>
 <script>
-// import Layout from "./components/Layout";
 import AuthHeader from "./components/header/AuthHeader";
 import Reels from "./components/Reels";
 import AdvancedControls from "./components/controls/AdvancedControls";
@@ -26,9 +25,24 @@ export default {
   data() {
     return {
       // eslint-disable-next-line
-      axios_info: null,
-      reel_count: 1,
-      slots_per_reel: 8,
+      reel_set: {
+        data: {
+          reels: [
+            {
+              id: 1,
+              nodes: [8]
+            },
+            {
+              id: 2,
+              nodes: [8]
+            },
+            {
+              id: 3,
+              nodes: [8]
+            }
+          ]
+        }
+      },
       current_header: "AuthHeader",
       current_controls: "AdvancedControls"
     };
@@ -36,7 +50,7 @@ export default {
   mounted() {
     axios
       .get("http://pazhurdev.herokuapp.com/api/default_reel_sets/1/")
-      .then(response => (this.axios_info = response));
+      .then(response => (this.reel_set = response));
   },
   methods: {
     updateCount(change) {
@@ -72,7 +86,6 @@ export default {
     }
   },
   components: {
-    // AppLayout: Layout,
     TextGen: TextGen,
     Reels: Reels,
     AdvancedControls: AdvancedControls,
@@ -81,7 +94,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-  main {
+main {
   background-color: cadetblue;
   height: 93%;
 }

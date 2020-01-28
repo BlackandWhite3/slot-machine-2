@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-row justify-content-between">
+  <div class="d-flex flex-row justify-content-between w-25">
     <div class="d-flex flex-column justify-content-between" style="min-width: 180px">
       <div class="d-flex flex-column justify-content-start">
         <p>Выберите набор:</p>

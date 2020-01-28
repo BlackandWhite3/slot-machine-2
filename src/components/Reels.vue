@@ -1,7 +1,19 @@
 <template>
-  <div id="reel" class="reelContainer" v-once>
-    <b-button pill variant="secondary" class="w-90 align-self-center">Очистить барабан</b-button>
-    <div :id="'ring' + reelId" class="ring"></div>
+  <div id="reelsContainer" class="w-75">
+    <div :id="'myreel' + reel" class="reelContainer" v-for="reel in reelsCount" :key="reel">
+      <b-button pill variant="secondary" class="w-90 align-self-center">Очистить</b-button>
+      <div :id="'ring' + reel" class="ring">
+        <div
+          :id="reel + '-' + slot"
+          class="slot"
+          v-for="slot in slotsPerReel"
+          :key="slot"
+          :style="{transform: 'rotateX(' + (slotAngle * slot) + 'deg)' + ' translateZ(' + reelRadius + 'px)'}"
+        >
+          Test
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -9,39 +21,48 @@
 export default {
   name: "Reels",
   props: {
-    reelId: Number,
-    slotsPerReel: Number
+    reelSet: Object
   },
   data() {
     return {
-      slotAngle: 0,
-      reelRadius: 0,
-      panelHeight: 188
+      panelHeight: 188,
     };
   },
-  methods: {
-    getSlotAngle(slotsPerReel) {
-      return 360 / slotsPerReel;
+  methods: {},
+  computed: {
+    reelsCount() {
+      return this.reelSet.data.reels.length;
     },
-    getReelRadius(panelHeight, slotsPerReel) {
-      return Math.round(panelHeight / 2 / Math.tan(Math.PI / slotsPerReel));
-    }
+    slotsPerReel() {
+      return this.reelSet.data.reels[0].nodes.length;
+    },
+    slotAngle() {
+      return 360 / this.slotsPerReel;
+    },
+    reelRadius() {
+      return Math.round(this.panelHeight / 2 / Math.tan(Math.PI / this.slotsPerReel));
+    },
   },
+  // mounted() {
+  //   for (let i = 1; i <= this.reelsCount; i++) {
+  //     for (let j = 1; j <= this.slotsPerReel; j++) {
+  //       document.getElementById(i + '-' + j).append("Test");
+  //       document.getElementById(i + '-' + j).style.transform = "rotateX(" + (this.slotAngle * j) + "deg) translateZ(" + this.reelRadius + "px)";
+  //     }
+  //   }
+  // }
   /*Старый способ, перенесённый из jQuery*/
-  mounted() {
-    this.slotAngle = this.getSlotAngle(this.slotsPerReel);
-    this.reelRadius = this.getReelRadius(this.panelHeight, this.slotsPerReel);
-    for (let i = 0; i < 8; i++) {
-      console.log(this.reelId);
-      let slot = document.createElement("div");
-      slot.className = "slot";
-      slot.id = this.reelId + "-" + i;
-      document.getElementById("ring" + this.reelId).append(slot);
-      document.getElementById(this.reelId + "-" + i).append("Test");
-      let MyTransform = "rotateX(" + (this.slotAngle * (i + 1)) + "deg) translateZ(" + (this.reelRadius) + "px)";
-      document.getElementById(this.reelId + "-" + i).style.transform = MyTransform;
-    }
-  }
+  // mounted() {
+  //   for (let i = 0; i < 8; i++) {
+  //     console.log(this.reelId);
+  //     let slot = document.createElement("div");
+  //     slot.className = "slot";
+  //     slot.id = this.reelId + "-" + i;
+  //     document.getElementById("ring" + this.reelId).append(slot);
+  //     document.getElementById(this.reelId + "-" + i).append("Test");
+  //     document.getElementById(this.reelId + "-" + i).style.transform = "rotateX(" + (this.slotAngle * (i + 1)) + "deg) translateZ(" + (this.reelRadius) + "px)";
+  //   }
+  // }
   /*Загрузка данных из API в Computed()
   computed() {}*/
 };

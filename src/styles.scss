@@ -22,7 +22,7 @@ header {
 .ring {
   margin: 0 auto;
   width: 200px;
-  height: 188px;
+  min-height: 188px;
   float: left;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
@@ -38,7 +38,7 @@ header {
   justify-content: center;
   position: absolute;
   width: inherit; /*90*/
-  height: inherit; /*80*/
+  min-height: inherit; /*80*/
   box-sizing: border-box;
   opacity: 0.9;
   color: rgba(0, 0, 0, 0.9);
@@ -50,10 +50,14 @@ header {
   max-width: inherit;
   margin: 0 auto;
 }
+#reelsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .reelContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /*потому что ось меняется при column*/
   min-height: 470px;
 }
 .perspective {
