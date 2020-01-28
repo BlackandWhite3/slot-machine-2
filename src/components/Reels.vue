@@ -13,7 +13,7 @@
           class="slot"
           v-for="slot in slotsPerReel"
           :key="slot"
-          :style="[{ transform: 'rotateX(' + rotateAngle[reel - 1][slot - 1] + 'deg)' + ' translateZ(' + reelRadius + 'px)' }, { 'z-index': reelsCount - reel}]"
+          :style="{ transform: 'rotateX(' + rotateAngle[reel - 1][slot - 1] + 'deg)' + ' translateZ(' + reelRadius + 'px)' }"
         > <!--slotAngle * slot-->
           Test
         </div>
@@ -30,17 +30,17 @@ export default {
   },
   data() {
     return {
-      panelHeight: 188,
+      panelHeight: 144,
       currentSlots: [],
       rotateAngle: [ //Попробуй перенести в created, сделать динамическое формирование. В любом случае так оставлять не вариант.
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0]
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360],
+              [45,90,135,180,225,270,315,360]
       ]
     };
   },
@@ -81,15 +81,15 @@ export default {
       return Math.round(
         this.panelHeight / 2 / Math.tan(Math.PI / this.slotsPerReel)
       );
-    },
-  },
-  created() {
-    for (let i = 0; i < this.reelsCount; i++) {
-      for (let j = 1; j <= this.slotsPerReel; j++) {
-        this.rotateAngle[i][j - 1] = this.slotAngle * j;
-      }
     }
   },
+  // created() {
+  //   for (let i = 0; i < this.reelsCount; i++) {
+  //     for (let j = 1; j <= this.slotsPerReel; j++) {
+  //       this.rotateAngle[i][j - 1] = this.slotAngle * j;
+  //     }
+  //   }
+  // },
   updated() {
     //ВЫНЕСТИ В МЕТОД ПРИ ЗАГРУЗКЕ НАБОРА ИЗ API
     for (let i = 1; i <= this.reelsCount; i++) {

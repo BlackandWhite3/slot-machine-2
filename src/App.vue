@@ -2,8 +2,8 @@
   <div class="body-h100">
     <component :is="current_header"></component>
     <main>
+      <reels :reel-set="reel_set"></reels>
       <div class="d-flex flex-row-reverse main-container">
-        <reels :reel-set="reel_set"></reels>
         <component :is="current_controls"></component>
       </div>
       <div class="text-center text-gen">
