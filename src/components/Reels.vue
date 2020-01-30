@@ -1,5 +1,5 @@
 <template>
-  <div id="reelsContainer" class="w-75">
+  <div id="reelsContainer">
     <div
       :id="'myreel' + reel"
       class="reelContainer"
@@ -13,8 +13,8 @@
           class="slot"
           v-for="slot in slotsPerReel"
           :key="slot"
-          :style="{ transform: 'rotateX(' + rotateAngle[reel - 1][slot - 1] + 'deg)' + ' translateZ(' + reelRadius + 'px)' }"
-        > <!--slotAngle * slot-->
+          :style="{ transform: 'rotateX(' + slotsAngles[slot - 1] + 'deg)' + ' translateZ(' + reelRadius + 'px)' }"
+        >
           Test
         </div>
       </div>
@@ -31,17 +31,7 @@ export default {
   data() {
     return {
       panelHeight: 144,
-      currentSlots: [],
-      rotateAngle: [ //Попробуй перенести в created, сделать динамическое формирование. В любом случае так оставлять не вариант.
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360],
-              [45,90,135,180,225,270,315,360]
-      ]
+      currentSlots: []
     };
   },
   methods: {
@@ -55,14 +45,6 @@ export default {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
-    reelSpin() {
-      for (let i = 1; i <= this.reelsCount; i++) {
-        console.log("123");
-      }
-    },
-    setRotateAngle() {
-
     }
   },
   computed: {
@@ -77,19 +59,19 @@ export default {
     slotAngle() {
       return 360 / this.slotsPerReel;
     },
+    slotsAngles() {
+      let slotsAngles = [];
+      for (let i = 1; i <= this.reelsCount; i++) {
+        slotsAngles[i - 1] = this.slotAngle * i;
+      }
+      return slotsAngles;
+    },
     reelRadius() {
       return Math.round(
         this.panelHeight / 2 / Math.tan(Math.PI / this.slotsPerReel)
       );
     }
   },
-  // created() {
-  //   for (let i = 0; i < this.reelsCount; i++) {
-  //     for (let j = 1; j <= this.slotsPerReel; j++) {
-  //       this.rotateAngle[i][j - 1] = this.slotAngle * j;
-  //     }
-  //   }
-  // },
   updated() {
     //ВЫНЕСТИ В МЕТОД ПРИ ЗАГРУЗКЕ НАБОРА ИЗ API
     for (let i = 1; i <= this.reelsCount; i++) {
@@ -99,9 +81,52 @@ export default {
 };
 </script>
 
-<style scoped>
-button,
-p {
+<style scoped lang="scss">
+  $ring-height: 144px;
+button, p {
   margin: 5px 10px;
+}
+  button {
+    margin-bottom: $ring-height;
+  }
+  #reelsContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+    min-height: $ring-height * 3.5;
+}
+  .reelContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: inherit;
+}
+  .ring {
+  margin: 0 auto;
+  width: 150px;
+  min-height: $ring-height;
+  float: left;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: transform 2s ease-in-out;
+          transition: transform 2s ease-in-out;
+}
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: inherit; /*90*/
+  min-height: inherit; /*80*/
+  box-sizing: border-box;
+  opacity: 0.9;
+  color: rgba(0, 0, 0, 0.9);
+  background: #fff;
+  border: solid 1px #000;
+  text-align: center;
+}
+.slot > p {
+  max-width: inherit;
+  margin: 0 auto;
 }
 </style>

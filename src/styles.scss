@@ -19,45 +19,6 @@ header {
     max-width: 10%;
   }
 }
-.ring {
-  margin: 0 auto;
-  width: 150px;
-  min-height: 144px;
-  float: left;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  -webkit-transition: transform 2s ease-in-out;
-          transition: transform 2s ease-in-out;
-}
-.slot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  width: inherit; /*90*/
-  min-height: inherit; /*80*/
-  box-sizing: border-box;
-  opacity: 0.9;
-  color: rgba(0, 0, 0, 0.9);
-  background: #fff;
-  border: solid 1px #000;
-  text-align: center;
-}
-.slot > p {
-  max-width: inherit;
-  margin: 0 auto;
-}
-#reelsContainer {
-  display: flex;
-  flex-direction: row-reverse; //Спасибо неработающему z-index у дочерних элементов flex-контейнера
-  justify-content: center;
-}
-.reelContainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 470px;
-}
 .perspective {
   -webkit-transform: rotateY(10deg);
           transform: rotateY(10deg);

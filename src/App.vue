@@ -3,12 +3,12 @@
     <component :is="current_header"></component>
     <main>
       <reels :reel-set="reel_set"></reels>
-      <div class="d-flex flex-row-reverse main-container">
-        <component :is="current_controls"></component>
-      </div>
-      <div class="text-center text-gen">
-        <div>{{ reel_set.data.reels[0] }}</div>
-        <text-gen></text-gen>
+      <div class="d-flex flex-row main-container">
+        <component :is="current_controls" class="w-25"></component>
+        <div class="text-center text-gen w-75">
+          <div>{{ reel_set.data.reels[0] }}</div>
+          <text-gen></text-gen>
+        </div>
       </div>
     </main>
   </div>
